@@ -20,11 +20,11 @@ namespace Data.Servicios
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
-        public string CrearToken(Usuario usuario)
+        public string CrearToken(UsuarioAplicacion usuario)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, usuario.Username)
+                new Claim(JwtRegisteredClaimNames.NameId, usuario.UserName)
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
