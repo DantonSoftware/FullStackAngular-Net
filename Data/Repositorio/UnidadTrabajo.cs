@@ -13,11 +13,20 @@ namespace Data.Repositorio
         public IEspecialidadRepositorio Especialidad { get; private set; }
         public IMedicoRepositorio Medico { get; private set; }
 
+        public IPacienteRepositorio Paciente { get; private set; }
+
+        public IHistoriaClinicaRepositorio HistoriaClinica { get; private set; }
+
+        public IAntecedenteRepositorio Antecedente { get; private set; }
+
         public UnidadTrabajo(ApplicationDbContext db)
         {
             _db = db;
             Especialidad = new EspecialidadRepositorio(db);
             Medico = new MedicoRepositorio(db);
+            Paciente = new PacienteRepositorio(db);
+            HistoriaClinica = new HistoriaClinicaRepositorio(db);
+            Antecedente = new AntecedenteRepositorio(db);
         }
 
         public void Dispose()

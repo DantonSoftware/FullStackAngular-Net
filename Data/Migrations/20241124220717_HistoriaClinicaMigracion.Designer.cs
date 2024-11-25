@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241124220717_HistoriaClinicaMigracion")]
+    partial class HistoriaClinicaMigracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,16 +256,10 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ActualizadoPorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Apellidos")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
-
-                    b.Property<int?>("CreadoPorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Direccion")
                         .IsRequired()
@@ -293,10 +290,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActualizadoPorId");
-
-                    b.HasIndex("CreadoPorId");
 
                     b.ToTable("Pacientes");
                 });
@@ -519,23 +512,6 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Especialidad");
-                });
-
-            modelBuilder.Entity("Models.Entidades.Paciente", b =>
-                {
-                    b.HasOne("Models.Entidades.UsuarioAplicacion", "ActualizadoPor")
-                        .WithMany()
-                        .HasForeignKey("ActualizadoPorId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Models.Entidades.UsuarioAplicacion", "CreadoPor")
-                        .WithMany()
-                        .HasForeignKey("CreadoPorId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("ActualizadoPor");
-
-                    b.Navigation("CreadoPor");
                 });
 
             modelBuilder.Entity("Models.Entidades.RolUsuarioAplicacion", b =>
